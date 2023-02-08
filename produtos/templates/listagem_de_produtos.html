@@ -1,0 +1,11 @@
+{% extends 'templates/base.html' %}
+
+{% block conteudo %}
+Listagem de produtos
+
+<ul>
+{% for produto in produtos  %}
+    <li> {{ produto.nome }} R$: {{ produto.preco }}<a href="#">ver detalhes</a> </li>
+{% endfor %}
+</ul>
+{% endblock conteudo %}
