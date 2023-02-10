@@ -1,18 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from produtos.models import Produto
+from produtos.forms import ProdutoModelForm
 
 def listagem_de_produtos(request):
-
-    
-        produtos_de_vendedores = [{
-            'vendedor': {'nome': 'john Doe'},
-            'produtos':[
-                {'nome': 'uva','preco':1}, 
-                {'nome': 'melancia','preco':2},
-                {'nome': 'banana','preco': 5}
-        ]
-        }]
-        context = {'produtos_de_vendedores': produtos_de_vendedores}
-    
+        produto = Produto.objects.all()
+        produtos_dos_vendedores = [{
+                'vendedor': {'nome': 'John Doe'},
+                'produtos': produto
+        }]       
+        context = {'produtos_dos_vendedores': produtos_dos_vendedores}
         return render(request, 'templates/listagem_de_produtos.html.', context)
+def detalhamento_produto(request,id):
+        produto =get_object_or_404(Produto,pk=id)
+        print(produto)
+        context = {
+                'produto': produto
+        }
+        return render (request, 'templates/detalhamento_produto.html',context)
+def cadastrar_produto(request):
+        print(request.POST)
+        form = ProdutoModelForm 
+        context = {
+                'form' : form
+        }
+        return render(request, 'templates/cadastrar_produto.html', context)
+
 
 # Create your views here.
