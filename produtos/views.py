@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from produtos.models import Produto
 from produtos.forms import ProdutoModelForm
-from produtos.forms import HttpResponseRedirect
+from django.http import HttpResponseRedirect
 def listagem_de_produtos(request):
-        produto = Produto.objects.all()
+        produto = Produto.objects.filter(excluido=False)
         produtos_dos_vendedores = [{
                 'vendedor': {'nome': 'John Doe'},
                 'produtos': produto
@@ -37,6 +37,16 @@ def cadastrar_produto(request):
         }
 
         return render(request, 'templates/cadastrar_produto.html', context)
-
+def excluir (request, id):
+        produto =get_object_or_404(Produto,pk=id)
+        if request.method == 'POST':
+                produto.excluido = True
+                produto.save()
+                return HttpResponseRedirect('/produtos/')        
+        print(produto)
+        context = {
+                'produto': produto
+        }
+        return render(request, 'templates/excluir.html', context)
 
 # Create your views here.
