@@ -1,0 +1,17 @@
+{% extends 'templates/base.html' %}
+
+{% block conteudo %}
+Listagem de servicos. <a href='cadastrar'> Novo servico </a>
+{%for produtos_do_vendedor in produtos_dos_vendedores%}
+<div>
+    <h3>{{ produtos_do_vendedor.vendedor.nome }}</h3>
+</div>
+
+<ul>
+
+{% for produto in produtos_do_vendedor.produtos  %}
+    <li> {{ produto.nome }} - R$: {{ produto.preco }} <a href="{{produto.id}}">ver detalhes</a> </li>
+{% endfor %}
+</ul>
+{% endfor %}
+{% endblock conteudo %}
