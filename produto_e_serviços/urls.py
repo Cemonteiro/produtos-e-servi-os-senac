@@ -16,11 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from .views import index
-from produtos.views import listagem_de_servicos
+from produtos.views import listagem_de_servicos, cadastrar_servico
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',index),
     path('produtos/', include('produtos.urls')),
-    path('servicos/',listagem_de_servicos)
+    path('servicos/',listagem_de_servicos),
+    path('servicos/cadastrar/', cadastrar_servico, name='cadastro_servico')
 ]
