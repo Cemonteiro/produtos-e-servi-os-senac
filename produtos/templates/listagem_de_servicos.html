@@ -1,7 +1,14 @@
 {% extends 'templates/base.html' %}
+{%load static  %}
 
 {% block conteudo %}
-Listagem de servicos. <a href="cadastrar"> Novo serviço </a>
+    <style>
+        .imagem-servico {
+        max-width: 80px;
+        max-height: 100px;
+    }
+    </style>
+Listagem de servicos. <a href="{% url 'cadastro_servico' %}"> Novo serviço </a>
 {% for servico_do_vendedor in servicos_dos_vendedores%}
     <div>
         <h3>{{ servico_do_vendedor.vendedor.nome }}</h3>
@@ -10,6 +17,12 @@ Listagem de servicos. <a href="cadastrar"> Novo serviço </a>
     <ul>
         {% for servico in servico_do_vendedor.servicos  %}
             <li> {{ servico.nome }} - R$: {{ servico.preco }} </li>
+            {%if servico.imagem%}
+                <img src={{servico.imagem.url}} class ="imagem-servico"/>
+                {% else %}
+                    <img = {% static '/imagens/defalt.jpg' %}
+                {%endif%}
+            {%endif%}
         {% endfor %}
     </ul>
 {% endfor %}

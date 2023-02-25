@@ -24,7 +24,7 @@ class Produto(models.Model):
 
     anunciante = models.ForeignKey(Anunciante, on_delete=models.CASCADE)
 
-    imagem = models.ImageField()
+    imagem = models.ImageField(upload_to='imagens', blank=True, null=True)
 
     def __str__(self):
         return f' {self.get_tipo_display()}:  {self.nome}'

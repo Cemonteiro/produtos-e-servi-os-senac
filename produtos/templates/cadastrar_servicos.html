@@ -21,7 +21,7 @@
 </style>
 <div class= "page-container">
 <h2>cadastrar serviço</h2>
-<form action="{% url 'cadastro_servico' %}" method="post">
+<form action="{% url 'cadastro_servico' %}" method="post" enctype="multipart/form-data">
     <div class= 'container-form'>
         {% csrf_token %}
         {{form}}

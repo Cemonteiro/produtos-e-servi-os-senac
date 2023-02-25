@@ -1,7 +1,14 @@
 {% extends 'templates/base.html' %}
+{%load static  %}
 
 {% block conteudo %}
-Listagem de produtos. <a href='cadastrar'> Novo produto </a>
+    <style>
+        .imagem-produto {
+            max-width: 80px;
+            max-height: 100px;
+        }
+    </style>
+Listagem de produtos. <a href="{% url 'cadastrar_produto' %}"> Novo produto </a>
 {%for produtos_do_vendedor in produtos_dos_vendedores%}
 <div>
     <h3>{{ produtos_do_vendedor.vendedor.nome }}</h3>
@@ -11,6 +18,11 @@ Listagem de produtos. <a href='cadastrar'> Novo produto </a>
 
 {% for produto in produtos_do_vendedor.produtos  %}
     <li> {{ produto.nome }} - R$: {{ produto.preco }} <a href="{{produto.id}}">ver detalhes</a> </li>
+    {%if produto.imagem%}
+        <img src={{produto.imagem.url}} class ="imagem-produto"/>
+     {% else %}
+     <img = {% static '/imagens/defalt.jpg' %}
+    {%endif%}
 {% endfor %}
 </ul>
 {% endfor %}
